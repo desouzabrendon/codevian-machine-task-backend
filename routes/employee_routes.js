@@ -50,4 +50,21 @@ router.post('/', async (req, res) => {
     }
 });
 
+/**
+ * Edit an existing Employee Record
+ */
+router.put('/:id', async (req, res) => {
+    const updatePayload = {
+        name: req.body.name,
+        phone: req.body.phone,
+        address: req.body.address
+    };
+    try {
+        const result = await employeeSchema.updateOne({ _id: req.params.id }, { $set: updatePayload });
+        res.json(result);
+    } catch (error) {
+        res.json({ message: error });
+    }
+});
+
 module.exports = router;
