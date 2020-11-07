@@ -7,8 +7,17 @@ const employeeSchema = employeeModel.employeeModel;
  * Get all Employees
  */
 router.get('/', async (req, res) => {
+    let condition = {};
+    if (req.query.search) {
+        condition = {
+            $or: [
+                { name: { $regex: new RegExp(req.query.search, 'i') } },
+                { "address.city": { $regex: RegExp(req.query.search, 'i') } }
+            ]
+        }
+    }
     try {
-        const employees = await employeeSchema.find();
+        const employees = await employeeSchema.find(condition);
         res.status(200).json(employees);
     } catch (error) {
         res.json({ message: error });
