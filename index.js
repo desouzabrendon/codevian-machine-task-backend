@@ -7,7 +7,7 @@ const cors = require('cors');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-app.use('/test', require('./routes/test_routes'));
+app.use('/employee', require('./routes/employee_routes'));
 
 // Root
 app.get('/', (req, res) => {
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 // Database Connection
 mongoose.connect(
-    'mongodb://localhost/test_db',
+    'mongodb://localhost/CODEVIAN_MACHINE_TASK',
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log('Connected to DB !')
 );
